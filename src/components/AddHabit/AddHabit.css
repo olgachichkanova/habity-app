@@ -1,0 +1,36 @@
+.form__box {
+    display: flex;
+    flex-direction: row;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px;
+  }
+  
+  form label {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+  }
+  
+  form input {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 2px solid #dfdfdf;
+    width: 45%;
+  }
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #428ffe;
+    color: white;
+    cursor: pointer;
+    width: 13%;
+  }

@@ -1,6 +1,7 @@
 import HabitItem from "../HabitItem/HabitItem"
+import AddHabit from '../AddHabit/AddHabit';
 
-const HabitsList = ({habits, setHabits}) => {
+const HabitsList = ({habits, setHabits, handleSubmit, newHabitName, setNewHabitName}) => {
     const handleCheckboxChange = (event, habitIndex, dayIndex) => {
         const newHabits = [...habits];
         newHabits[habitIndex].days[dayIndex].completed = event.target.checked;
@@ -12,6 +13,7 @@ const HabitsList = ({habits, setHabits}) => {
             <ul>
                 {habits.map((habit, habitIndex) => (<HabitItem key={habit.id} habit={habit} habitIndex={habitIndex} handleCheckboxChange={handleCheckboxChange}/>))}
             </ul>
+            <AddHabit handleSubmit={handleSubmit} newHabitName={newHabitName} setNewHabitName={setNewHabitName} />
         </div>
     )
 }

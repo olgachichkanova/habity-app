@@ -1,8 +1,15 @@
 import './App.css';
 import { useState, useEffect } from 'react'
-import AddHabit from './components/AddHabit/AddHabit';
+
 import HabitsList from './components/HabitsList/HabitsList'
 import Statistic from './components/Statistics/Statistics';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Link
+} from "react-router-dom";
 
 import shortid from "shortid"
 
@@ -32,20 +39,31 @@ function App() {
   };
   
   return (
-    <div className="App">
-      <header>
-        <div className="logo">Habity</div>
-        <nav>
-          <a href="/habits">Habits</a>
-          <a href="/statistics">Statistics</a>
-        </nav>
-      </header>
-      <div className="wrapper">
-        <HabitsList habits={habits} setHabits={setHabits}/>
-        <AddHabit handleSubmit={handleSubmit} newHabitName={newHabitName} setNewHabitName={setNewHabitName} />
-        <Statistic habits={habits} />
+    <BrowserRouter>
+      <div className="App">
+        <header>
+          <div className="logo">Habity</div>
+          <nav>
+            <Link to="/habits">Habits</Link>
+            <Link to="/statistics">Statistics</Link>
+          </nav>
+        </header>
+        <div className="wrapper">
+          <Routes>
+            <Route exact path="/habits" element={
+              <HabitsList 
+                habits={habits} 
+                setHabits={setHabits} 
+                handleSubmit={handleSubmit} 
+                newHabitName={newHabitName} 
+                setNewHabitName={setNewHabitName}
+              />
+              } />
+            <Route path="/statistics" element={<Statistic habits={habits} />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

@@ -50,6 +50,7 @@ function App() {
         </header>
         <div className="wrapper">
           <Routes>
+            <Route exact path="/" element={<Navigate to={"/habits"}/>}/>
             <Route exact path="/habits" element={
               <HabitsList 
                 habits={habits} 

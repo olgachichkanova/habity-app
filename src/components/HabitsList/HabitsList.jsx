@@ -8,6 +8,10 @@ const HabitsList = ({habits, setHabits}) => {
         newHabits[habitIndex].days[dayIndex].completed = event.target.checked;
         setHabits(newHabits);
       };
+
+      const handleDelete = (habit) => {
+        setHabits(prevHabit => prevHabit.filter(i => i.id !== habit.id))
+      }
     return (
         <div>
             <AddHabit 
@@ -22,6 +26,7 @@ const HabitsList = ({habits, setHabits}) => {
                         habit={habit} 
                         habitIndex={habitIndex} 
                         handleCheckboxChange={handleCheckboxChange}
+                        handleDelete={handleDelete}
                     />
                 ))}
             </ul>

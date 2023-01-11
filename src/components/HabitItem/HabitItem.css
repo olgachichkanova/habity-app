@@ -12,6 +12,23 @@
     margin: 0 auto;
     margin-bottom: 20px;
     padding: 20px 10px;
+    position: relative;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    color: #e38d31;
+    background-color: transparent;
+    padding: 10px;
+    margin: 0;
+    width: auto;
+}
+
+.delete-btn:hover {
+   font-size: 23px;
 }
 
 .habit span {

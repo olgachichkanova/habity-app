@@ -1,6 +1,23 @@
 import './AddHabit.css';
+import shortid from "shortid"
+import { useState } from 'react'
 
-const AddHabit = ({handleSubmit, newHabitName, setNewHabitName}) => {
+const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+const AddHabit = ({habits, setHabits}) => {
+  const [newHabitName, setNewHabitName] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newHabit = {
+      id: shortid.generate(),
+      name: newHabitName,
+      days: daysOfWeek.map((day) => ({ day, completed: false })),
+    };
+  
+    setHabits([...habits, newHabit]);
+    setNewHabitName('');
+  };
     
     const handleChange = (event) => {
         if (event.target.name === 'name') {

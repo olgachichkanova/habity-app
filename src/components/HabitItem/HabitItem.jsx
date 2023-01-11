@@ -1,11 +1,10 @@
 import './HabitItem.css'
-
-const HabitItem = ({habit, habitIndex, handleCheckboxChange}) => {
+import { FaTrash } from 'react-icons/fa'
+const HabitItem = ({habit, habitIndex, handleCheckboxChange, handleDelete}) => {
     return (
         <li className='habit'>
             <span>{habit.name}</span>
-            {/* <button onClick={() => handleEdit(habitIndex)}>Edit</button> */}
-            {/* <button onClick={() => handleDelete(habitIndex)}>Delete</button> */}
+            <button className='delete-btn' onClick={() => handleDelete(habit)}><FaTrash /></button>
             <ul>
             {habit.days.map((day, dayIndex) => (
                 <li key={day.day} className="checkbox">

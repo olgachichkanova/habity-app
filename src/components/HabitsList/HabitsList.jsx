@@ -2,22 +2,38 @@ import HabitItem from "../HabitItem/HabitItem"
 import AddHabit from '../AddHabit/AddHabit';
 
 
-const HabitsList = ({habits, setHabits}) => {
-    const handleCheckboxChange = (event, habitIndex, dayIndex) => {
-        const newHabits = [...habits];
-        newHabits[habitIndex].days[dayIndex].completed = event.target.checked;
-        setHabits(newHabits);
-      };
+const HabitsList = ({habits, setHabits, loadData}) => {
 
       const handleDelete = (habit) => {
         setHabits(prevHabit => prevHabit.filter(i => i.id !== habit.id))
       }
+      const updateData = (event, habitIndex, dayIndex) => {
+        const newHabit = habits[habitIndex];
+        newHabit.days = JSON.parse(newHabit.days)
+        newHabit.days[dayIndex].completed = event.target.checked;
+
+        const formData = new URLSearchParams();
+        formData.append("name", newHabit.name);
+        formData.append("days", JSON.stringify(newHabit.days));
+    
+        fetch(`${process.env.REACT_APP_BASE_URL}/${newHabit._id}`, {
+            method: 'PUT',
+            body: formData.toString(),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        })
+        .then(res => {
+            loadData()
+            if (!res.ok) {
+                throw new Error(res.statusText);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    };
     return (
         <div>
-            <AddHabit 
-                habits={habits} 
-                setHabits={setHabits} 
-            />
+            <AddHabit loadData={loadData} />
             <h1>Your habits</h1>
             <ul>
                 {habits.map((habit, habitIndex) => (
@@ -25,7 +41,7 @@ const HabitsList = ({habits, setHabits}) => {
                         key={habit.id} 
                         habit={habit} 
                         habitIndex={habitIndex} 
-                        handleCheckboxChange={handleCheckboxChange}
+                        handleCheckboxChange={updateData}
                         handleDelete={handleDelete}
                     />
                 ))}

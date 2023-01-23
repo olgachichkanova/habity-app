@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 const Statistic = ({ habits }) => {
   const data = habits.map((habit) => {
-    const completedDays = habit.days.filter((day) => day.completed).length;
+    const completedDays = JSON.parse(habit.days).filter((day) => day.completed).length;
     return { name: habit.name, completed: completedDays };
   });
 

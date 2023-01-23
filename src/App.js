@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   BrowserRouter,
   Routes,
@@ -10,10 +10,22 @@ import {
 import HabitsList from './components/HabitsList/HabitsList'
 import Statistic from './components/Statistics/Statistics';
 
-const testData = require('./data/data')
-
 function App() {
-  const [habits, setHabits] = useState(testData.data);
+  const [habits, setHabits] = useState([]);
+  
+
+  const loadData = () => {
+    fetch(process.env.REACT_APP_BASE_URL)
+      .then((response) => response.json())
+      .then((result) => {
+        setHabits(result);
+      })
+      .catch(() => {
+        console.log('error')
+      });
+  };
+
+  useEffect(loadData, [habits.length]);
   
   return (
     <BrowserRouter>
@@ -31,7 +43,8 @@ function App() {
             <Route exact path="/habits" element={
               <HabitsList 
                 habits={habits} 
-                setHabits={setHabits} 
+                setHabits={setHabits}
+                loadData={loadData}
               />
               } />
             <Route path="/statistics" element={<Statistic habits={habits} />} />

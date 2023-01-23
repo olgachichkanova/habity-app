@@ -1,56 +1,55 @@
 import HabitItem from "../HabitItem/HabitItem"
 import AddHabit from '../AddHabit/AddHabit';
 
+const url = process.env.REACT_APP_BASE_URL;
 
 const HabitsList = ({habits, loadData}) => {
-      const deleteData = (habit) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}/${habit._id}`, {
-            method: 'DELETE'
-        })
-        .then(res => {
-            loadData()
+    const deleteData = async (habit) => {
+        try {
+            const res = await fetch(`${url}/${habit._id}`, {
+                method: 'DELETE'
+            });
             if (!res.ok) {
                 throw new Error(res.statusText);
             }
-        })
-        .catch(error => {
+            loadData()
+        } catch (error) {
             console.error(error);
-        });
-      }
-      const updateData = (event, habitIndex, dayIndex) => {
-        const newHabit = habits[habitIndex];
-        newHabit.days = JSON.parse(newHabit.days)
-        newHabit.days[dayIndex].completed = event.target.checked;
-
-        const formData = new URLSearchParams();
-        formData.append("name", newHabit.name);
-        formData.append("days", JSON.stringify(newHabit.days));
+        }
+    }
+    const updateData = async (event, habit, dayIndex) => {
+        try {
+            console.log(habit._id)
+            habit.days = JSON.parse(habit.days);
+            habit.days[dayIndex].completed = event.target.checked;
     
-        fetch(`${process.env.REACT_APP_BASE_URL}/${newHabit._id}`, {
-            method: 'PUT',
-            body: formData.toString(),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        })
-        .then(res => {
-            loadData()
+            const formData = new URLSearchParams();
+            formData.append("name", habit.name);
+            formData.append("days", JSON.stringify(habit.days));
+    
+            const res = await fetch(`${url}/${habit._id}`, {
+                method: 'PUT',
+                body: formData.toString(),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            });
             if (!res.ok) {
                 throw new Error(res.statusText);
             }
-        })
-        .catch(error => {
+            loadData()
+        } catch (error) {
             console.error(error);
-        });
+        }
     };
+    
     return (
         <div>
             <AddHabit loadData={loadData} />
             <h1>Your habits</h1>
             <ul>
-                {habits.map((habit, habitIndex) => (
+                {habits.map((habit) => (
                     <HabitItem 
-                        key={habit.id} 
+                        key={habit._id} 
                         habit={habit} 
-                        habitIndex={habitIndex} 
                         handleCheckboxChange={updateData}
                         handleDelete={deleteData}
                     />

@@ -9,13 +9,14 @@ import {
 } from "react-router-dom";
 import HabitsList from './components/HabitsList/HabitsList'
 import Statistic from './components/Statistics/Statistics';
+const url = process.env.REACT_APP_BASE_URL
 
 function App() {
   const [habits, setHabits] = useState([]);
   
 
   const loadData = () => {
-    fetch(process.env.REACT_APP_BASE_URL)
+    fetch(url)
       .then((response) => response.json())
       .then((result) => {
         setHabits(result);

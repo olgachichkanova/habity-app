@@ -36,7 +36,7 @@ module.exports = function (app, db) {
     app.delete("/habits/:id", (req, res) => {
         const id = req.params.id
         const details = {"_id": new ObjectID(id)}
-        db.collection("habits").remove(details, (err, result) => {
+        db.collection("habits").deleteOne(details, (err, result) => {
             if(err) {
                 res.send("Error has occured")
             } else {

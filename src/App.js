@@ -43,7 +43,6 @@ function App() {
             <Route exact path="/habits" element={
               <HabitsList 
                 habits={habits} 
-                setHabits={setHabits}
                 loadData={loadData}
               />
               } />

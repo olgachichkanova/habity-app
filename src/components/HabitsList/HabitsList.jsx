@@ -2,10 +2,20 @@ import HabitItem from "../HabitItem/HabitItem"
 import AddHabit from '../AddHabit/AddHabit';
 
 
-const HabitsList = ({habits, setHabits, loadData}) => {
-
-      const handleDelete = (habit) => {
-        setHabits(prevHabit => prevHabit.filter(i => i.id !== habit.id))
+const HabitsList = ({habits, loadData}) => {
+      const deleteData = (habit) => {
+        fetch(`${process.env.REACT_APP_BASE_URL}/${habit._id}`, {
+            method: 'DELETE'
+        })
+        .then(res => {
+            loadData()
+            if (!res.ok) {
+                throw new Error(res.statusText);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
       }
       const updateData = (event, habitIndex, dayIndex) => {
         const newHabit = habits[habitIndex];
@@ -42,7 +52,7 @@ const HabitsList = ({habits, setHabits, loadData}) => {
                         habit={habit} 
                         habitIndex={habitIndex} 
                         handleCheckboxChange={updateData}
-                        handleDelete={handleDelete}
+                        handleDelete={deleteData}
                     />
                 ))}
             </ul>

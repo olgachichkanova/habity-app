@@ -1,21 +1,22 @@
 import './HabitItem.css'
 import { FaTrash } from 'react-icons/fa'
-const HabitItem = ({habit, habitIndex, handleCheckboxChange, handleDelete}) => {
+const HabitItem = ({habit, handleCheckboxChange, handleDelete}) => {
+    const days = JSON.parse(habit.days)
     return (
         <li className='habit'>
             <span>{habit.name}</span>
             <button className='delete-btn' onClick={() => handleDelete(habit)}><FaTrash /></button>
             <ul>
-            {habit.days.map((day, dayIndex) => (
+            {days.map((day, dayIndex) => (
                 <li key={day.day} className="checkbox">
                 
                 <input
-                    id={`${habit.name}${day.day}`}
+                    id={`${habit._id}${day.day}`}
                     type="checkbox"
                     checked={day.completed}
-                    onChange={(event) => handleCheckboxChange(event, habitIndex, dayIndex)}
+                    onChange={(event) => handleCheckboxChange(event, habit, dayIndex)}
                 />
-                <label htmlFor={`${habit.name}${day.day}`}>{day.day.slice(0, 3)}</label>
+                <label htmlFor={`${habit._id}${day.day}`}>{day.day.slice(0, 3)}</label>
                 <div className="toggle-button__icon"></div>
                 </li>
             ))}

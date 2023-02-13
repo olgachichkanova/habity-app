@@ -9,6 +9,12 @@ This app is designed to help you track your daily habits and measure your progre
 - View statistics that show your progress for each habit on a weekly, monthly, and quarterly basis
 - Edit and delete habits as needed
 
+### Technologies
+- React
+- React Router
+- Express.js
+- MongoDB
+
 ### Instructions for Running the Project
 1) Start the backend by navigating to the backend directory and running the following commands:
 

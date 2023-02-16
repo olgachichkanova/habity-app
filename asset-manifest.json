@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/habity-app/static/css/main.fbeffdac.css",
+    "main.js": "/habity-app/static/js/main.abb3235a.js",
+    "static/js/787.bf04469c.chunk.js": "/habity-app/static/js/787.bf04469c.chunk.js",
+    "index.html": "/habity-app/index.html",
+    "main.fbeffdac.css.map": "/habity-app/static/css/main.fbeffdac.css.map",
+    "main.abb3235a.js.map": "/habity-app/static/js/main.abb3235a.js.map",
+    "787.bf04469c.chunk.js.map": "/habity-app/static/js/787.bf04469c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fbeffdac.css",
+    "static/js/main.abb3235a.js"
+  ]
+}
